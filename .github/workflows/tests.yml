@@ -1,0 +1,9 @@
+name: Host regression tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y build-essential libcrypt-dev
+      - run: for test in tests/*.py; do python3 "$test" || exit; done
